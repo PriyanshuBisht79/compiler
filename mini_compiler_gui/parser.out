@@ -1,0 +1,601 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> statements
+Rule 2     statements -> statement statements
+Rule 3     statements -> statement
+Rule 4     statement -> INT ID EQUALS expression SEMICOLON
+Rule 5     statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+Rule 6     statement -> PRINT LPAREN expression RPAREN SEMICOLON
+Rule 7     expression -> expression PLUS term
+Rule 8     expression -> expression MINUS term
+Rule 9     expression -> term
+Rule 10    term -> term TIMES factor
+Rule 11    term -> term DIVIDE factor
+Rule 12    term -> factor
+Rule 13    factor -> LPAREN expression RPAREN
+Rule 14    factor -> NUMBER
+Rule 15    factor -> ID
+Rule 16    expression -> expression GT term
+
+Terminals, with rules where they appear
+
+DIVIDE               : 11
+ELSE                 : 5
+EQUALS               : 4
+GT                   : 16
+ID                   : 4 15
+IF                   : 5
+INT                  : 4
+LBRACE               : 5 5
+LPAREN               : 5 6 13
+MINUS                : 8
+NUMBER               : 14
+PLUS                 : 7
+PRINT                : 6
+RBRACE               : 5 5
+RPAREN               : 5 6 13
+SEMICOLON            : 4 6
+TIMES                : 10
+error                : 
+
+Nonterminals, with rules where they appear
+
+expression           : 4 5 6 7 8 13 16
+factor               : 10 11 12
+program              : 0
+statement            : 2 3
+statements           : 1 2 5 5
+term                 : 7 8 9 10 11 16
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . statements
+    (2) statements -> . statement statements
+    (3) statements -> . statement
+    (4) statement -> . INT ID EQUALS expression SEMICOLON
+    (5) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (6) statement -> . PRINT LPAREN expression RPAREN SEMICOLON
+
+    INT             shift and go to state 4
+    IF              shift and go to state 5
+    PRINT           shift and go to state 6
+
+    program                        shift and go to state 1
+    statements                     shift and go to state 2
+    statement                      shift and go to state 3
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> statements .
+
+    $end            reduce using rule 1 (program -> statements .)
+
+
+state 3
+
+    (2) statements -> statement . statements
+    (3) statements -> statement .
+    (2) statements -> . statement statements
+    (3) statements -> . statement
+    (4) statement -> . INT ID EQUALS expression SEMICOLON
+    (5) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (6) statement -> . PRINT LPAREN expression RPAREN SEMICOLON
+
+    $end            reduce using rule 3 (statements -> statement .)
+    RBRACE          reduce using rule 3 (statements -> statement .)
+    INT             shift and go to state 4
+    IF              shift and go to state 5
+    PRINT           shift and go to state 6
+
+    statement                      shift and go to state 3
+    statements                     shift and go to state 7
+
+state 4
+
+    (4) statement -> INT . ID EQUALS expression SEMICOLON
+
+    ID              shift and go to state 8
+
+
+state 5
+
+    (5) statement -> IF . LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+
+    LPAREN          shift and go to state 9
+
+
+state 6
+
+    (6) statement -> PRINT . LPAREN expression RPAREN SEMICOLON
+
+    LPAREN          shift and go to state 10
+
+
+state 7
+
+    (2) statements -> statement statements .
+
+    $end            reduce using rule 2 (statements -> statement statements .)
+    RBRACE          reduce using rule 2 (statements -> statement statements .)
+
+
+state 8
+
+    (4) statement -> INT ID . EQUALS expression SEMICOLON
+
+    EQUALS          shift and go to state 11
+
+
+state 9
+
+    (5) statement -> IF LPAREN . expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (7) expression -> . expression PLUS term
+    (8) expression -> . expression MINUS term
+    (9) expression -> . term
+    (16) expression -> . expression GT term
+    (10) term -> . term TIMES factor
+    (11) term -> . term DIVIDE factor
+    (12) term -> . factor
+    (13) factor -> . LPAREN expression RPAREN
+    (14) factor -> . NUMBER
+    (15) factor -> . ID
+
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    expression                     shift and go to state 13
+    term                           shift and go to state 14
+    factor                         shift and go to state 15
+
+state 10
+
+    (6) statement -> PRINT LPAREN . expression RPAREN SEMICOLON
+    (7) expression -> . expression PLUS term
+    (8) expression -> . expression MINUS term
+    (9) expression -> . term
+    (16) expression -> . expression GT term
+    (10) term -> . term TIMES factor
+    (11) term -> . term DIVIDE factor
+    (12) term -> . factor
+    (13) factor -> . LPAREN expression RPAREN
+    (14) factor -> . NUMBER
+    (15) factor -> . ID
+
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    expression                     shift and go to state 18
+    term                           shift and go to state 14
+    factor                         shift and go to state 15
+
+state 11
+
+    (4) statement -> INT ID EQUALS . expression SEMICOLON
+    (7) expression -> . expression PLUS term
+    (8) expression -> . expression MINUS term
+    (9) expression -> . term
+    (16) expression -> . expression GT term
+    (10) term -> . term TIMES factor
+    (11) term -> . term DIVIDE factor
+    (12) term -> . factor
+    (13) factor -> . LPAREN expression RPAREN
+    (14) factor -> . NUMBER
+    (15) factor -> . ID
+
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    expression                     shift and go to state 19
+    term                           shift and go to state 14
+    factor                         shift and go to state 15
+
+state 12
+
+    (13) factor -> LPAREN . expression RPAREN
+    (7) expression -> . expression PLUS term
+    (8) expression -> . expression MINUS term
+    (9) expression -> . term
+    (16) expression -> . expression GT term
+    (10) term -> . term TIMES factor
+    (11) term -> . term DIVIDE factor
+    (12) term -> . factor
+    (13) factor -> . LPAREN expression RPAREN
+    (14) factor -> . NUMBER
+    (15) factor -> . ID
+
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    expression                     shift and go to state 20
+    term                           shift and go to state 14
+    factor                         shift and go to state 15
+
+state 13
+
+    (5) statement -> IF LPAREN expression . RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (7) expression -> expression . PLUS term
+    (8) expression -> expression . MINUS term
+    (16) expression -> expression . GT term
+
+    RPAREN          shift and go to state 21
+    PLUS            shift and go to state 22
+    MINUS           shift and go to state 23
+    GT              shift and go to state 24
+
+
+state 14
+
+    (9) expression -> term .
+    (10) term -> term . TIMES factor
+    (11) term -> term . DIVIDE factor
+
+    RPAREN          reduce using rule 9 (expression -> term .)
+    PLUS            reduce using rule 9 (expression -> term .)
+    MINUS           reduce using rule 9 (expression -> term .)
+    GT              reduce using rule 9 (expression -> term .)
+    SEMICOLON       reduce using rule 9 (expression -> term .)
+    TIMES           shift and go to state 25
+    DIVIDE          shift and go to state 26
+
+
+state 15
+
+    (12) term -> factor .
+
+    TIMES           reduce using rule 12 (term -> factor .)
+    DIVIDE          reduce using rule 12 (term -> factor .)
+    RPAREN          reduce using rule 12 (term -> factor .)
+    PLUS            reduce using rule 12 (term -> factor .)
+    MINUS           reduce using rule 12 (term -> factor .)
+    GT              reduce using rule 12 (term -> factor .)
+    SEMICOLON       reduce using rule 12 (term -> factor .)
+
+
+state 16
+
+    (14) factor -> NUMBER .
+
+    TIMES           reduce using rule 14 (factor -> NUMBER .)
+    DIVIDE          reduce using rule 14 (factor -> NUMBER .)
+    RPAREN          reduce using rule 14 (factor -> NUMBER .)
+    PLUS            reduce using rule 14 (factor -> NUMBER .)
+    MINUS           reduce using rule 14 (factor -> NUMBER .)
+    GT              reduce using rule 14 (factor -> NUMBER .)
+    SEMICOLON       reduce using rule 14 (factor -> NUMBER .)
+
+
+state 17
+
+    (15) factor -> ID .
+
+    TIMES           reduce using rule 15 (factor -> ID .)
+    DIVIDE          reduce using rule 15 (factor -> ID .)
+    RPAREN          reduce using rule 15 (factor -> ID .)
+    PLUS            reduce using rule 15 (factor -> ID .)
+    MINUS           reduce using rule 15 (factor -> ID .)
+    GT              reduce using rule 15 (factor -> ID .)
+    SEMICOLON       reduce using rule 15 (factor -> ID .)
+
+
+state 18
+
+    (6) statement -> PRINT LPAREN expression . RPAREN SEMICOLON
+    (7) expression -> expression . PLUS term
+    (8) expression -> expression . MINUS term
+    (16) expression -> expression . GT term
+
+    RPAREN          shift and go to state 27
+    PLUS            shift and go to state 22
+    MINUS           shift and go to state 23
+    GT              shift and go to state 24
+
+
+state 19
+
+    (4) statement -> INT ID EQUALS expression . SEMICOLON
+    (7) expression -> expression . PLUS term
+    (8) expression -> expression . MINUS term
+    (16) expression -> expression . GT term
+
+    SEMICOLON       shift and go to state 28
+    PLUS            shift and go to state 22
+    MINUS           shift and go to state 23
+    GT              shift and go to state 24
+
+
+state 20
+
+    (13) factor -> LPAREN expression . RPAREN
+    (7) expression -> expression . PLUS term
+    (8) expression -> expression . MINUS term
+    (16) expression -> expression . GT term
+
+    RPAREN          shift and go to state 29
+    PLUS            shift and go to state 22
+    MINUS           shift and go to state 23
+    GT              shift and go to state 24
+
+
+state 21
+
+    (5) statement -> IF LPAREN expression RPAREN . LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+
+    LBRACE          shift and go to state 30
+
+
+state 22
+
+    (7) expression -> expression PLUS . term
+    (10) term -> . term TIMES factor
+    (11) term -> . term DIVIDE factor
+    (12) term -> . factor
+    (13) factor -> . LPAREN expression RPAREN
+    (14) factor -> . NUMBER
+    (15) factor -> . ID
+
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    term                           shift and go to state 31
+    factor                         shift and go to state 15
+
+state 23
+
+    (8) expression -> expression MINUS . term
+    (10) term -> . term TIMES factor
+    (11) term -> . term DIVIDE factor
+    (12) term -> . factor
+    (13) factor -> . LPAREN expression RPAREN
+    (14) factor -> . NUMBER
+    (15) factor -> . ID
+
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    term                           shift and go to state 32
+    factor                         shift and go to state 15
+
+state 24
+
+    (16) expression -> expression GT . term
+    (10) term -> . term TIMES factor
+    (11) term -> . term DIVIDE factor
+    (12) term -> . factor
+    (13) factor -> . LPAREN expression RPAREN
+    (14) factor -> . NUMBER
+    (15) factor -> . ID
+
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    term                           shift and go to state 33
+    factor                         shift and go to state 15
+
+state 25
+
+    (10) term -> term TIMES . factor
+    (13) factor -> . LPAREN expression RPAREN
+    (14) factor -> . NUMBER
+    (15) factor -> . ID
+
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    factor                         shift and go to state 34
+
+state 26
+
+    (11) term -> term DIVIDE . factor
+    (13) factor -> . LPAREN expression RPAREN
+    (14) factor -> . NUMBER
+    (15) factor -> . ID
+
+    LPAREN          shift and go to state 12
+    NUMBER          shift and go to state 16
+    ID              shift and go to state 17
+
+    factor                         shift and go to state 35
+
+state 27
+
+    (6) statement -> PRINT LPAREN expression RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 36
+
+
+state 28
+
+    (4) statement -> INT ID EQUALS expression SEMICOLON .
+
+    INT             reduce using rule 4 (statement -> INT ID EQUALS expression SEMICOLON .)
+    IF              reduce using rule 4 (statement -> INT ID EQUALS expression SEMICOLON .)
+    PRINT           reduce using rule 4 (statement -> INT ID EQUALS expression SEMICOLON .)
+    $end            reduce using rule 4 (statement -> INT ID EQUALS expression SEMICOLON .)
+    RBRACE          reduce using rule 4 (statement -> INT ID EQUALS expression SEMICOLON .)
+
+
+state 29
+
+    (13) factor -> LPAREN expression RPAREN .
+
+    TIMES           reduce using rule 13 (factor -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 13 (factor -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 13 (factor -> LPAREN expression RPAREN .)
+    PLUS            reduce using rule 13 (factor -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 13 (factor -> LPAREN expression RPAREN .)
+    GT              reduce using rule 13 (factor -> LPAREN expression RPAREN .)
+    SEMICOLON       reduce using rule 13 (factor -> LPAREN expression RPAREN .)
+
+
+state 30
+
+    (5) statement -> IF LPAREN expression RPAREN LBRACE . statements RBRACE ELSE LBRACE statements RBRACE
+    (2) statements -> . statement statements
+    (3) statements -> . statement
+    (4) statement -> . INT ID EQUALS expression SEMICOLON
+    (5) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (6) statement -> . PRINT LPAREN expression RPAREN SEMICOLON
+
+    INT             shift and go to state 4
+    IF              shift and go to state 5
+    PRINT           shift and go to state 6
+
+    statements                     shift and go to state 37
+    statement                      shift and go to state 3
+
+state 31
+
+    (7) expression -> expression PLUS term .
+    (10) term -> term . TIMES factor
+    (11) term -> term . DIVIDE factor
+
+    RPAREN          reduce using rule 7 (expression -> expression PLUS term .)
+    PLUS            reduce using rule 7 (expression -> expression PLUS term .)
+    MINUS           reduce using rule 7 (expression -> expression PLUS term .)
+    GT              reduce using rule 7 (expression -> expression PLUS term .)
+    SEMICOLON       reduce using rule 7 (expression -> expression PLUS term .)
+    TIMES           shift and go to state 25
+    DIVIDE          shift and go to state 26
+
+
+state 32
+
+    (8) expression -> expression MINUS term .
+    (10) term -> term . TIMES factor
+    (11) term -> term . DIVIDE factor
+
+    RPAREN          reduce using rule 8 (expression -> expression MINUS term .)
+    PLUS            reduce using rule 8 (expression -> expression MINUS term .)
+    MINUS           reduce using rule 8 (expression -> expression MINUS term .)
+    GT              reduce using rule 8 (expression -> expression MINUS term .)
+    SEMICOLON       reduce using rule 8 (expression -> expression MINUS term .)
+    TIMES           shift and go to state 25
+    DIVIDE          shift and go to state 26
+
+
+state 33
+
+    (16) expression -> expression GT term .
+    (10) term -> term . TIMES factor
+    (11) term -> term . DIVIDE factor
+
+    RPAREN          reduce using rule 16 (expression -> expression GT term .)
+    PLUS            reduce using rule 16 (expression -> expression GT term .)
+    MINUS           reduce using rule 16 (expression -> expression GT term .)
+    GT              reduce using rule 16 (expression -> expression GT term .)
+    SEMICOLON       reduce using rule 16 (expression -> expression GT term .)
+    TIMES           shift and go to state 25
+    DIVIDE          shift and go to state 26
+
+
+state 34
+
+    (10) term -> term TIMES factor .
+
+    TIMES           reduce using rule 10 (term -> term TIMES factor .)
+    DIVIDE          reduce using rule 10 (term -> term TIMES factor .)
+    RPAREN          reduce using rule 10 (term -> term TIMES factor .)
+    PLUS            reduce using rule 10 (term -> term TIMES factor .)
+    MINUS           reduce using rule 10 (term -> term TIMES factor .)
+    GT              reduce using rule 10 (term -> term TIMES factor .)
+    SEMICOLON       reduce using rule 10 (term -> term TIMES factor .)
+
+
+state 35
+
+    (11) term -> term DIVIDE factor .
+
+    TIMES           reduce using rule 11 (term -> term DIVIDE factor .)
+    DIVIDE          reduce using rule 11 (term -> term DIVIDE factor .)
+    RPAREN          reduce using rule 11 (term -> term DIVIDE factor .)
+    PLUS            reduce using rule 11 (term -> term DIVIDE factor .)
+    MINUS           reduce using rule 11 (term -> term DIVIDE factor .)
+    GT              reduce using rule 11 (term -> term DIVIDE factor .)
+    SEMICOLON       reduce using rule 11 (term -> term DIVIDE factor .)
+
+
+state 36
+
+    (6) statement -> PRINT LPAREN expression RPAREN SEMICOLON .
+
+    INT             reduce using rule 6 (statement -> PRINT LPAREN expression RPAREN SEMICOLON .)
+    IF              reduce using rule 6 (statement -> PRINT LPAREN expression RPAREN SEMICOLON .)
+    PRINT           reduce using rule 6 (statement -> PRINT LPAREN expression RPAREN SEMICOLON .)
+    $end            reduce using rule 6 (statement -> PRINT LPAREN expression RPAREN SEMICOLON .)
+    RBRACE          reduce using rule 6 (statement -> PRINT LPAREN expression RPAREN SEMICOLON .)
+
+
+state 37
+
+    (5) statement -> IF LPAREN expression RPAREN LBRACE statements . RBRACE ELSE LBRACE statements RBRACE
+
+    RBRACE          shift and go to state 38
+
+
+state 38
+
+    (5) statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE . ELSE LBRACE statements RBRACE
+
+    ELSE            shift and go to state 39
+
+
+state 39
+
+    (5) statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE . LBRACE statements RBRACE
+
+    LBRACE          shift and go to state 40
+
+
+state 40
+
+    (5) statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE . statements RBRACE
+    (2) statements -> . statement statements
+    (3) statements -> . statement
+    (4) statement -> . INT ID EQUALS expression SEMICOLON
+    (5) statement -> . IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (6) statement -> . PRINT LPAREN expression RPAREN SEMICOLON
+
+    INT             shift and go to state 4
+    IF              shift and go to state 5
+    PRINT           shift and go to state 6
+
+    statements                     shift and go to state 41
+    statement                      shift and go to state 3
+
+state 41
+
+    (5) statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements . RBRACE
+
+    RBRACE          shift and go to state 42
+
+
+state 42
+
+    (5) statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .
+
+    INT             reduce using rule 5 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
+    IF              reduce using rule 5 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
+    PRINT           reduce using rule 5 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
+    $end            reduce using rule 5 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
+    RBRACE          reduce using rule 5 (statement -> IF LPAREN expression RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
+
